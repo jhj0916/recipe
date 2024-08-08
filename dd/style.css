@@ -1,0 +1,30 @@
+
+
+#grid-container {
+    display: grid;
+    grid-template-columns: repeat(99, 1fr);
+    grid-template-rows: repeat(99, 1fr);
+    width: 800px;
+    height: 800px;
+    border: 1px solid black;
+}
+#color-picker {
+    margin-bottom: 1rem;
+}
+
+.grid-item {
+    border: 1px solid lightgray;
+    background-color: white;
+    cursor: pointer;
+}
+.color-btn {
+    padding: 0.5rem 1rem;
+    margin: 0.5rem;
+    background-color: transparent;
+    border: 1px solid #ccc;
+    cursor: pointer;
+}
+
+.colored {
+    background-color: blue;
+}

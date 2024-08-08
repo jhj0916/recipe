@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>레시피 정보 출력</title>
+    <link rel="stylesheet" href="https://pyscript.net/latest/pyscript.css">
+    <script defer src="https://pyscript.net/latest/pyscript.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        .recipe {
+            border: 1px solid #ddd;
+            padding: 10px;
+            margin: 10px 0;
+        }
+    </style>
+</head>
+<body>
+    <h1>레시피 정보</h1>
+    <button id="fetch-recipes">레시피 가져오기</button>
+    <div id="result"></div>
+    
+    <script>
+        document.getElementById('fetch-recipes').addEventListener('click', () => {
+            const url = 'http://openapi.foodsafetykorea.go.kr/api/baba58c32c4343b78e78/COOKRCP01/json/1/2'; // API URL
+
+            fetch(url)
+                .then(response => response.json())
+                .then(data => {
+                    const recipes = data['COOKRCP01']['row'];
+                    pyscript.run('display_recipes', {recipes: recipes});
+                })
+                .catch(error => console.error('Error:', error));
+        });
+    </script>
+
+    <py-script>
+        def display_recipes(recipes):
+            result_div = Element('result')
+            result_div.clear()
+            for recipe in recipes:
+                name = recipe['RCP_NM']
+                hashtag = recipe['HASH_TAG']
+                calories = recipe['INFO_ENG']
+                carbs = recipe['INFO_CAR']
+                protein = recipe['INFO_PRO']
+                fat = recipe['INFO_FAT']
+                ingredients = recipe['RCP_PARTS_DTLS']
+
+                recipe_info = f"""
+                    <div class="recipe">
+                        <h3>{name}</h3>
+                        <p><strong>해시태그:</strong> {hashtag}</p>
+                        <p><strong>칼로리:</strong> {calories}</p>
+                        <p><strong>탄수화물:</strong> {carbs}</p>
+                        <p><strong>단백질:</strong> {protein}</p>
+                        <p><strong>지방:</strong> {fat}</p>
+                        <p><strong>재료:</strong> {ingredients}</p>
+                    </div>
+                """
+                result_div.element.innerHTML += recipe_info  # 레시피 정보를 결과 div에 추가
+    </py-script>
+</body>
+</html>

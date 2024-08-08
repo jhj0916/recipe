@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>방명록</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <h1>방명록</h1>
+    <form id="guestbook-form" method="POST" action="submit.php">
+        <label for="name">이름:</label>
+        <input type="text" id="name" name="name" required>
+        <label for="message">메시지:</label>
+        <textarea id="message" name="message" required></textarea>
+        <button type="submit">작성</button>
+    </form>
+    <div id="guestbook-entries">
+        <!-- PHP를 통해 방명록 항목을 불러옵니다 -->
+        <?php include 'load_entries.php'; ?>
+    </div>
+</body>
+</html>
